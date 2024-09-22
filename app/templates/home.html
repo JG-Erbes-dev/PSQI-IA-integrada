@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock %}
+{% block extra_css %}
+    <style>
+        h1 {
+            color: rgb(0, 0, 0);
+        }
+
+        header {
+            background-color: transparent;
+            color: rgb(18, 71, 81);
+            text-align: center;         
+            margin: 0; 
+            padding: 0; 
+            position: relative;
+            z-index: 1;
+        }
+
+        section {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: linear-gradient(0deg, #ffbb00, #f1ab5a);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: rgb(0, 0, 0);
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: rgba(18, 71, 81);
+            color: rgb(255, 255, 255);
+            border: none;
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+            margin-top: 5px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            font-weight: bold;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <section>
+        <h1 style="text-align: center;">Bem-vindo ao Sistema de Avaliação PSQI</h1>
+        <h2>O que é o PSQI?</h2>
+        <p>
+            O Pittsburgh Sleep Quality Index (PSQI) é uma ferramenta de avaliação amplamente utilizada para medir a qualidade do sono e identificar distúrbios do sono. Desenvolvido por pesquisadores da Universidade de Pittsburgh, o PSQI avalia aspectos importantes relacionados ao sono, como a duração, a eficiência e a presença de dificuldades.
+        </p>
+
+        <h2>Benefícios do Teste PSQI</h2>
+        <ul>
+            <li><p><strong>Identificação de Problemas de Sono:</strong> O PSQI ajuda a identificar questões relacionadas ao sono, como dificuldade para adormecer, acordar durante a noite e distúrbios respiratórios.</p></li>
+            <li><p><strong>Avaliação da Qualidade do Sono:</strong> Fornece uma medida detalhada da qualidade do sono, ajudando profissionais de saúde a entender melhor o padrão de sono de um indivíduo.</p></li>
+            <li><p><strong>Base para Intervenção:</strong> Os resultados do PSQI podem orientar as intervenções e tratamentos para melhorar a qualidade do sono e o bem-estar geral.</p></li>
+        </ul>
+    </section>
+    {% if not user.is_authenticated %}
+        <div class="button-container">
+            Teste a qualidade do seu sono conosco!<br>
+            <a href="{% url 'register' %}" class="btn">Cadastre-se</a>
+        </div>
+    {% endif %}
+{% endblock %}

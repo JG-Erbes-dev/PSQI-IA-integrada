@@ -1,0 +1,707 @@
+{% extends 'base.html' %}
+
+{% block title %}Fazer Teste{% endblock %}
+
+{% block extra_css %}
+<style>
+    .container {
+        width: 800px;
+        margin: 0 auto;
+        padding: 0 auto;
+        box-sizing: border-box;
+        position: relative;
+        overflow-x: auto;
+        font-size: 14px;
+        font-family: Calibri, sans-serif;
+    }
+
+    .container::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-image: url('/media/gaipa-brasao-2.jpg'); 
+        background-size: 100% 22%; 
+        background-repeat: no-repeat;
+        background-position: calc(100%) center;
+        opacity: 0.11; 
+        pointer-events: none; 
+        z-index: 1; 
+    }
+
+    .form {
+        margin-top: 10px;
+        margin-bottom: 0;
+        position: relative;
+        z-index: 2; 
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        background-color: rgba(18, 71, 81);
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        font-weight: bold;
+    }
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .user-info {
+        border: 1px solid #000000;
+        background-color: #ffffff;
+        display: flex;
+        font-size: 14px;
+    }
+
+    .user-info .participant_name {
+        flex: 1.5;
+        text-align: left;
+        margin-left: 0.5%;
+    }
+
+    .user-info .participant_id {
+        flex: 0.4;
+        text-align: center;        
+        flex-wrap: nowrap;
+    }
+
+    .user-info .birth_date {
+        flex: 0.8;
+        text-align: center;
+    }
+
+    .date-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 6px;
+    }
+
+    .date-container .input-date {
+        margin-top: 10px;
+        display: flex;
+        align-items: baseline;
+        width: 24%;
+    }
+
+    .date-container .input-text {
+        margin-top: 10px;
+        display: flex;
+        align-items: baseline;
+        width: 25%;
+    }
+
+    .date-container .input-text input::placeholder {
+        color: rgb(0, 0, 0);
+        opacity: 1;
+    }
+
+    .date-container label {
+        white-space: nowrap;
+    }
+    
+    .date-container input[type="text"] {
+        margin-top: 5px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        margin-bottom: 0;
+        border: 1px solid #000000;
+    }
+
+    th {
+        padding: 0 auto;
+        border: 1px solid #000000;
+        background-color: #ebebe0;
+        text-align: left;
+    }
+
+    .input-container {
+        display: flexbox;
+        text-align: start;
+    }
+    
+    .input-container label,
+    .input-container input {
+        align-content: center;
+        width: 38%; 
+        border: none;
+    }
+
+    .table-questionnaire th {
+        padding: 5px;
+        border: 1px solid #000000;
+        vertical-align: top;
+        text-align: center;
+    } 
+    
+    .table-questionnaire td {
+        padding: 5px;
+        border: 1px solid #000000;
+        vertical-align: top;
+        text-align: center;
+    }
+
+    .table-questionnaire td.question {
+        padding: 5px;
+        font-weight: normal;
+        width: 22%; 
+        text-align: left; 
+    }
+
+    .table-questionnaire td.answer {
+        padding: 5px;
+        font-weight: normal;
+        width: 10%;
+        vertical-align: middle;
+    }
+
+    .table-questionnaire.second-part {
+        padding: 5px;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .table-questionnaire.second-part th,
+    .table-questionnaire.second-part td {
+        padding: 5px;
+        border: 1px solid #000000;
+        border: 1px solid #ddd;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .table-questionnaire.second-part th.id-left {
+        padding: 5px;
+        border: 1px solid #000000;
+        text-align: left;
+    }
+
+    .table-questionnaire.second-part td.question {
+        width: 30px;
+        padding: 5px;
+        border: 1px solid #000000;
+        text-align: left;
+    }
+
+    .table-questionnaire.second-part td.answer {
+        width: 14%;
+        padding: 5px;
+        border: 1px solid #000000;
+    }
+
+    .table-questionnaire.second-part th:first-child {
+        padding: 5px;
+        border: 1px solid #000000;
+    }
+
+    .table-questionnaire.second-part th:not(:first-child) {
+        padding: 5px;
+        border: 1px solid #000000;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+    }
+
+    .bold-text {
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .custom-checkbox {
+        position: absolute;
+        opacity: 0;
+    }
+
+    .custom-checkbox-container {
+        display: inline-block;
+        align-items: center;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .custom-checkbox-span {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        position: relative;
+        margin-top: 8px;
+        margin-right: 8px;
+        font-size: 18px;
+        line-height: 20px;
+    }
+
+    .custom-checkbox-span::before {
+        content: "[";
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-weight: bold;
+    }
+
+    .custom-checkbox-span::after {
+        content: "]";
+        position: absolute;
+        top: 0%;
+        left: 63%;
+        font-weight: bold;
+    }
+
+    .custom-checkbox:checked + .custom-checkbox-span::before {
+        content: "[";
+        position: absolute;
+    }
+
+    .custom-checkbox:checked + .custom-checkbox-span::after {
+        content: "X]";
+        position: absolute;
+        top: 52%;
+        left: 54.5%;
+        transform: translate(-50%, -60%);
+    }
+    
+    .references {
+        position: relative;
+        overflow-x: auto;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3 style="text-align: center; font-size: 16px;">ÍNDICE DA QUALIDADE DO SONO DE PITTSBURGH – VERSÃO PORTUGUÊS BRASILEIRO (PSQI-BR)</h3>
+
+    <form method="post" class="form">
+        {% csrf_token %}
+        
+        <div class="form-group date-container">
+            <div class="input-date" style="position: relative;">
+                <label for="{{ form.evaluation_date.id_for_label }}" style="font-weight: normal;">Data da Avaliação:</label>
+                <input type="text" id="{{ form.evaluation_date.id_for_label }}"
+                       name="{{ form.evaluation_date.name }}" 
+                       maxlength="10" 
+                       style="opacity: 0; border: none; outline: none;" 
+                       placeholder="__/__/____" 
+                       value="{{ form.evaluation_date.value|default_if_none:'' }}" 
+                       oninput="formatDate(this)" required>
+                <div id="date-output" style="position: absolute; top: 18%; left: 55%; color: black; pointer-events: none;">
+                    {{ form.evaluation_date.value|default_if_none:'' }}
+                </div>
+            </div>
+        
+            <div class="input-text" style="position: relative;">
+                <label for="{{ form.participant_name.id_for_label }}" style="font-weight: normal;">Avaliador:</label>
+                <input type="text" id="{{ form.participant_name.id_for_label }}"  
+                       style=" border: none; outline: none;" 
+                       oninput="updateTextPlaceholder(this)" 
+                       value="{{ form.participant_name.value|default:'_____________________.' }}" 
+                       onfocus="this.blur()">
+                <div id="text-output" style="position: absolute; top: 20%; left: 29%; color: black; pointer-events: none;">
+                    {{ form.participant_name.value|default_if_none:'' }}
+                </div>
+            </div>
+        </div>        
+        <div class="user-info">
+            {% for field in form %}
+                {% if forloop.counter == 2 %}
+                    <div class="participant_name">
+                        <label for="{{ form.participant_name.id_for_label }}">{{ field.label }}</label>
+                        <input type="text" id="{{ form.participant_name.id_for_label }}" 
+                               name="{{ form.participant_name.name }}" 
+                               value="{{ form.participant_name.value|default_if_none:user.full_name }}" 
+                               style="border: none; width: 50%;"
+                               onfocus="this.blur()">
+                    </div>
+                {% elif forloop.counter == 3 %}
+                    <div class="participant_id">
+                        <label for="{{ form.participant_id.id_for_label }}">{{ field.label }}</label>
+                        <input type="text" id="{{ form.participant_id.id_for_label }}" 
+                               name="{{ form.participant_id.name }}" 
+                               value="{{ form.participant_id.value|default_if_none:user.id }}" 
+                               style="border: none; width: 10%;"
+                               onfocus="this.blur()">
+                    </div>
+                {% elif forloop.counter == 4 %}
+                    <div class="birth_date">
+                        <label for="{{ form.birth_date.id_for_label }}">{{ field.label }}</label>
+                        <input type="text" id="{{ form.birth_date.id_for_label }}" 
+                               name="{{ form.birth_date.name }}" 
+                               value="{{ form.birth_date.value|default_if_none:user.date_of_birth|date:'d/m/Y' }}" 
+                               style="border: none; width: 40%; margin-right: 0;"
+                               onfocus="this.blur()">
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>        
+        <div>
+            <p>As seguintes perguntas são relativas aos seus hábitos de sono durante<strong> o último mês somente.</strong> Suas respostas devem indicar a lembrança mais exata 
+                da <strong>maioria</strong> dos dias e noites do último mês. Por favor, responda a todas as perguntas. </p>
+        </div>
+        <table class="table-questionnaire">
+            <tbody>
+                {% for field in form|slice:"4:" %}
+                    {% if forloop.counter >= 5 and forloop.counter <= 8 %}
+                        <tr>
+                            <td class="question">{{ field.label }}</td>
+                            <td class="answer">
+                                <div class="input-container">
+                                    <label for="{{ field.id_for_label }}">
+                                        {% if forloop.counter == 5 %}
+                                            Hora usual de deitar:
+                                        {% elif forloop.counter == 6 %}
+                                            Número de minutos:
+                                        {% elif forloop.counter == 7 %}
+                                            Hora usual de levantar:
+                                        {% elif forloop.counter == 8 %}
+                                            Horas de sono por noite:
+                                        {% endif %}
+                                    </label>
+                                    {% if forloop.counter == 5 %}
+                                        <input type="time" id="{{ field.id_for_label }}" 
+                                               name="{{ field.name }}" required>
+                                    {% elif forloop.counter == 6 %}
+                                        <input type="text" id="{{ field.id_for_label }}" 
+                                               name="{{ field.name }}" 
+                                               placeholder="Ex: 30" required> 
+                                    {% elif forloop.counter == 7 %}
+                                        <input type="time" id="{{ field.id_for_label }}" 
+                                               name="{{ field.name }}" required>
+                                    {% elif forloop.counter == 8 %}
+                                        <input type="text" id="{{ field.id_for_label }}" 
+                                               name="{{ field.name }}" 
+                                               placeholder="Ex: 7 horas" required>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        <div>
+            <p>Para cada uma das questões restantes, marque a <strong>melhor (uma)</strong> resposta. Por favor, responda a todas as questões. </p>
+        </div>
+        <table class="table-questionnaire second-part">
+            <thead>
+                <tr>
+                    <th class="id-left" style="vertical-align: middle;">5. Durante o último mês, com que frequência você teve dificuldade para dormir porque você...</th>
+                    <th style="vertical-align: middle;">Nenhuma no último mês</th>
+                    <th style="vertical-align: middle;">Menos de uma vez por semana</th>
+                    <th style="vertical-align: middle;">Uma ou duas vezes por semana</th>
+                    <th style="vertical-align: middle;">Três ou mais vezes na semana</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for field in form %}
+                    {% if forloop.counter > 8 %}
+                        <tr>
+                            {% if forloop.counter == 18 %}
+                            <td class="question custom-input">
+                                <label for="{{ form.other_reasons.id_for_label }}">
+                                    J) outra(s) razão(ões), por favor descreva:
+                                </label>
+                                <input type="{{ form.other_reasons.type }}" 
+                                       id="{{ form.other_reasons.id_for_label }}" 
+                                       name="{{ form.other_reasons.name }}" 
+                                       style="display:inline; border-bottom: 1px solid; border-color: #000000; 
+                                              border-top: none; border-left: none; border-right: none; 
+                                              background: none; width: 90px;">
+                                <br>
+                                <label for="{{ form.other_reasons_frequency.id_for_label }}">
+                                    Com que frequência, durante o último mês, você teve<br>
+                                    dificuldade para dormir devido a essa razão?
+                                </label>
+                                {{ form.other_reasons_frequency }}
+                                <td class="answer">
+                                    <label for="{{ form.other_reasons_choice.id_for_label }}_0">0</label>
+                                    <input type="radio" name="other_reasons_choice" id="{{ form.other_reasons_choice.id_for_label }}_0" value="0">
+                                </td>
+                                <td class="answer">
+                                    <label for="{{ form.other_reasons_choice.id_for_label }}_1">1</label>
+                                    <input type="radio" name="other_reasons_choice" id="{{ form.other_reasons_choice.id_for_label }}_1" value="1">
+                                </td>
+                                <td class="answer">
+                                    <label for="{{ form.other_reasons_choice.id_for_label }}_2">2</label>
+                                    <input type="radio" name="other_reasons_choice" id="{{ form.other_reasons_choice.id_for_label }}_2" value="2">
+                                </td>
+                                <td class="answer">
+                                    <label for="{{ form.other_reasons_choice.id_for_label }}_3">3</label>
+                                    <input type="radio" name="other_reasons_choice" id="{{ form.other_reasons_choice.id_for_label }}_3" value="3">
+                                </td>
+                                {% elif forloop.counter == 19 %}
+                                <td class="question" style="display:none;">{{ field.label }}</td>
+                                <td class="answer" style="display:none;">
+                                    <input type="radio" name="other_reasons_choice" id="{{ form.other_reasons_choice.id_for_label }}_0" value="0" style="opacity: 0;">
+                                </td>                      
+                            {% elif forloop.counter == 20 %}
+                                <td class="question">
+                                    <span class="bold-text">{{ field.label }}</span>
+                                </td>
+                                <td class="answer">
+                                    <label for="{{ field.id_for_label }}_0"><span class="bold-text">Muito boa</span><br>0</label>
+                                    <input type="radio" name="{{ field.name }}" id="{{ field.id_for_label }}_0" value="0">
+                                </td>
+                                <td class="answer">
+                                    <label for="{{ field.id_for_label }}_1"><span class="bold-text">Boa</span><br>1</label>
+                                    <input type="radio" name="{{ field.name }}" id="{{ field.id_for_label }}_1" value="1">
+                                </td>
+                                <td class="answer">
+                                    <label for="{{ field.id_for_label }}_2"><span class="bold-text">Ruim</span><br>2</label>
+                                    <input type="radio" name="{{ field.name }}" id="{{ field.id_for_label }}_2" value="2">
+                                </td>
+                                <td class="answer">
+                                    <label for="{{ field.id_for_label }}_3"><span class="bold-text">Muito ruim</span><br>3</label>
+                                    <input type="radio" name="{{ field.name }}" id="{{ field.id_for_label }}_3" value="3">
+                                </td>                            
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th style="vertical-align: middle;">Nenhuma no último mês</th>
+                                        <th style="vertical-align: middle;">Menos de uma vez por semana</th>
+                                        <th style="vertical-align: middle;">Uma ou duas vezes por semana</th>
+                                        <th style="vertical-align: middle;">Três ou mais vezes na semana</th>
+                                    </tr>
+                                </thead>
+                            {% elif forloop.counter >= 21 and forloop.counter <= 22 %}
+                                <td class="question">
+                                    <span class="bold-text">{{ field.label }}</span>
+                                </td>
+                                <td class="answer">
+                                    <label for="{{ field.id_for_label }}_0">0</label>
+                                    <input type="radio" name="{{ field.name }}" id="{{ field.id_for_label }}_0" value="0">
+                                </td>
+                                <td class="answer">
+                                    <label for="{{ field.id_for_label }}_1">1</label>
+                                    <input type="radio" name="{{ field.name }}" id="{{ field.id_for_label }}_1" value="1">
+                                </td>
+                                <td class="answer">
+                                    <label for="{{ field.id_for_label }}_2">2</label>
+                                    <input type="radio" name="{{ field.name }}" id="{{ field.id_for_label }}_2" value="2">
+                                </td>
+                                <td class="answer">
+                                    <label for="{{ field.id_for_label }}_3">3</label>
+                                    <input type="radio" name="{{ field.name }}" id="{{ field.id_for_label }}_3" value="3">
+                                </td>
+                            {% elif forloop.counter == 23 %}
+                                <td class="question">
+                                    <span class="bold-text">{{ field.label }}</span>
+                                </td>
+                                <td class="answer">
+                                    <label for="{{ field.id_for_label }}_0">
+                                        <span class="bold-text">Nenhuma dificuldade<br>0</span>
+                                    </label>
+                                    <input type="radio" name="{{ field.name }}" id="{{ field.id_for_label }}_0" value="0">
+                                </td>
+                                <td class="answer">
+                                    <label for="{{ field.id_for_label }}_1">
+                                        <span class="bold-text">Um problema leve<br>1</span>
+                                    </label>
+                                    <input type="radio" name="{{ field.name }}" id="{{ field.id_for_label }}_1" value="1">
+                                </td>
+                                <td class="answer">
+                                    <label for="{{ field.id_for_label }}_2">
+                                        <span class="bold-text">Um problema razoável<br>2</span>
+                                    </label>
+                                    <input type="radio" name="{{ field.name }}" id="{{ field.id_for_label }}_2" value="2">
+                                </td>
+                                <td class="answer">
+                                    <label for="{{ field.id_for_label }}_3">
+                                        <span class="bold-text">Um grande problema<br>3</span>
+                                    </label>
+                                    <input type="radio" name="{{ field.name }}" id="{{ field.id_for_label }}_3" value="3">
+                                </td>
+                            {% elif forloop.counter == 24 %}
+                                <td class="question" style="vertical-align: middle;">
+                                    <span class="bold-text">{{ field.label }}</span>
+                                </td>
+                                <td class="answer" style="vertical-align: bottom;">
+                                    <label class="custom-checkbox-container" style="display: block;">
+                                        <span class="bold-text" style="display: block; text-align: center;">Não</span>
+                                        <input type="checkbox" name="{{ field.name }}" id="{{ field.id_for_label }}_0" value="0" class="custom-checkbox" style="display: block; margin-left: auto; margin-right: auto;">
+                                        <span class="custom-checkbox-span" style="display: block; margin-left: auto; margin-right: auto;"></span>
+                                    </label>
+                                </td>
+                                <td class="answer" style="vertical-align: bottom;">
+                                    <label class="custom-checkbox-container" style="display: block;">
+                                        <span class="bold-text" style="display: block; text-align: center;">Parceiro ou colega, mas em outro quarto</span>
+                                        <input type="checkbox" name="{{ field.name }}" id="{{ field.id_for_label }}_1" value="1" class="custom-checkbox" style="display: block; margin-left: auto; margin-right: auto;">
+                                        <span class="custom-checkbox-span" style="display: block; margin-left: auto; margin-right: auto;"></span>
+                                    </label>
+                                </td>
+                                <td class="answer" style="vertical-align: bottom;">
+                                    <label class="custom-checkbox-container" style="display: block;">
+                                        <span class="bold-text" style="display: block; text-align: center;">Parceiro no mesmo quarto, mas em outra cama</span>
+                                        <input type="checkbox" name="{{ field.name }}" id="{{ field.id_for_label }}_2" value="2" class="custom-checkbox" style="display: block; margin-left: auto; margin-right: auto;">
+                                        <span class="custom-checkbox-span" style="display: block; margin-left: auto; margin-right: auto;"></span>
+                                    </label>
+                                </td>
+                                <td class="answer" style="vertical-align: bottom;">
+                                    <label class="custom-checkbox-container" style="display: block;">
+                                        <span class="bold-text" style="display: block; text-align: center;">Parceiro na mesma cama</span>
+                                        <input type="checkbox" name="{{ field.name }}" id="{{ field.id_for_label }}_3" value="3" class="custom-checkbox" style="display: block; margin-left: auto; margin-right: auto;">
+                                        <span class="custom-checkbox-span" style="display: block; margin-left: auto; margin-right: auto;"></span>
+                                    </label>
+                                </td>
+                            {% else %}
+                                <td class="question">
+                                    <span class="bold-text">{{ field.label }}</span>
+                                </td>
+                                <td class="answer">
+                                    <label for="{{ field.id_for_label }}_0">
+                                        <span class="bold-text">0</span>
+                                    </label>
+                                    <input type="radio" name="{{ field.name }}" id="{{ field.id_for_label }}_0" value="0">
+                                </td>
+                                <td class="answer">
+                                    <label for="{{ field.id_for_label }}_1">
+                                        <span class="bold-text">1</span>
+                                    </label>
+                                    <input type="radio" name="{{ field.name }}" id="{{ field.id_for_label }}_1" value="1">
+                                </td>
+                                <td class="answer">
+                                    <label for="{{ field.id_for_label }}_2">
+                                        <span class="bold-text">2</span>
+                                    </label>
+                                    <input type="radio" name="{{ field.name }}" id="{{ field.id_for_label }}_2" value="2">
+                                </td>
+                                <td class="answer">
+                                    <label for="{{ field.id_for_label }}_3">
+                                        <span class="bold-text">3</span>
+                                    </label>
+                                    <input type="radio" name="{{ field.name }}" id="{{ field.id_for_label }}_3" value="3">
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        <script>
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                            if (cb !== this) {
+                                cb.checked = false;
+                            }
+                        });
+                    }
+                });
+            });
+            function formatDate(input) {
+                let value = input.value.replace(/\D/g, '');
+
+                if (value.length > 2) {
+                    value = value.slice(0, 2) + '/' + value.slice(2);
+                }
+                if (value.length > 5) {
+                    value = value.slice(0, 5) + '/' + value.slice(5);
+                }
+
+                input.value = value;
+
+                updateDisplay(value);
+            }
+
+            function updateDisplay(value) {
+                let displayValue = '__/__/____';
+                let day = value.slice(0, 2); 
+                let month = value.slice(3, 5); 
+                let year = value.slice(6); 
+
+                if (day.length === 1) {
+                    displayValue = displayValue.replace('__', `<u>${day}</u>_`);
+                } else if (day.length === 2) {
+                    displayValue = displayValue.replace('__', `<u>${day}</u>`);
+                }
+                if (month.length === 1) {
+                    displayValue = displayValue.replace('__', `<u>${month}</u>_`);
+                } else if (month.length === 2) {
+                    displayValue = displayValue.replace('__', `<u>${month}</u>`);
+                }
+                if (year.length === 1) {
+                    displayValue = displayValue.replace('____', `<u>${year}</u>___`);
+                } else if (year.length === 2) {
+                    displayValue = displayValue.replace('____', `<u>${year}</u>__`);
+                } else if (year.length === 3) {
+                    displayValue = displayValue.replace('____', `<u>${year}</u>_`);
+                } else if (year.length === 4) {
+                    displayValue = displayValue.replace('____', `<u>${year}</u>`);
+                }
+
+                document.getElementById("date-output").innerHTML = displayValue + (value.length = 10 ? '.': '');
+            }
+
+            
+            document.addEventListener("DOMContentLoaded", function() {
+                const dateInput = document.getElementById("date");
+                updateDisplay(dateInput.value); 
+            });
+
+            updateDisplay(''); 
+
+            document.getElementById("date").addEventListener("input", function() {
+                updateDisplay(this.value);
+            });
+            function updateTextPlaceholder(input) {
+                let value = input.value;
+
+                let placeholder = '__________________.';
+                let filledPlaceholder = placeholder;
+
+                for (let i = 0; i < value.length && i < 18; i++) { 
+                    filledPlaceholder = filledPlaceholder.replace('_', `<u>${value[i]}</u>`);
+                }
+
+                document.getElementById("text-output").innerHTML = filledPlaceholder;
+
+                input.setAttribute('placeholder', filledPlaceholder.replace(/<u>|<\/u>/g, ''));
+            }
+
+            document.addEventListener("DOMContentLoaded", function() {
+                const textInput = document.getElementById("text-input");
+                updateTextPlaceholder(textInput);
+            });
+        </script>
+        <div class="references" style="font-size: 13.5px;">
+            <p>REFERÊNCIA</p>
+            <p>Buysse DJ, Reynolds III CF, Monk TH, Bernam SR, Kupfer DJ. The Pittsburgh sleep quality index: A new instrument for psychiatric practice and<br>
+            research. <font color="purple"><u>Psychiatric Research</u></font>, 1989, 28(2):193-213.</p>
+            <p>Bertolazi AN et al. Validation of the Brazilian Portuguese version of the Pittsburgh Sleep Quality Index. <font color="blue"><b><u>Sleep Med</u></b></font>. 2011 Jan;12(1):70-5.</p>
+            Bertolazi AN. <b>Tradução, adaptação cultural e validação de dois instrumentos de avaliação do sono: Escala de Sonolência de Epworth e Índice<br>
+            de Qualidade de Sono de Pittsburgh</b>. 2008. 93p. Dissertação (mestrado em medicina) Faculdade de Medicina. Programa de Pós-graduação em<br>
+            medicina. Universidade Federal do Rio Grande do Sul (UFGRS). Porto Alegre, 2008.< <a href="https://lume.ufrgs.br/handle/10183/14041" style="color: blue;"> https://lume.ufrgs.br/handle/10183/14041</https:></a>>.</p>
+        </div>
+        <div style="display: flex; justify-content: space-between; width: 100%;">
+            <img src="/media/lodo-defisio.png" alt="Logo 1" style="width: 30%; height: auto;">
+            <a href="https://www.gaipa.ufc.br" style="margin: 0 30px; margin-left: -10px;">www.gaipa.ufc.br</a>
+            <img src="/media/gaipa-brasao-2.jpg" alt="Logo 2" style="width: 25%; height: auto;">
+        </div>
+        <div class="form-group" style="text-align: center; ">
+            <button type="submit" class="btn">Finalizar Teste</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

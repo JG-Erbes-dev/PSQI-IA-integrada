@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block title %}Resultado dia {{ evaluation_date|date:'d/m/Y' }} {% endblock %}
+
+{% block extra_css %}
+<style>
+    body {
+        background-color: #dfdfdf;
+    }
+
+    .container {
+        padding: 1rem; 
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .user-info { 
+        background-color: white;
+        border-radius: 15px;
+        display: flex;
+        font-size: 16px;
+        justify-content: center;
+    }
+
+    .card-center, .card-bottom {
+        border-radius: 10px;
+        margin-bottom: 1rem; 
+        padding: 1rem; 
+        background-color: #f9f9f9; 
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    }
+
+    .button-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+    
+    .btn {
+        display: inline-block;
+        background-color: rgba(18, 71, 81);
+        color: rgb(255, 255, 255);
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+        margin: 0 10px;
+        text-decoration: none;
+    }
+
+    .btn:hover {
+        font-weight: bold;
+    }
+
+    table {
+        width: 100%; 
+        border-collapse: collapse;
+    }
+
+    th, td {
+        text-align: left; 
+        padding: 8px; 
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2; 
+    }
+
+    p {
+        margin: 5px; 
+    }
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div style="text-align: center; font-weight: bold; margin-top: 5px; margin-bottom: 5px;">
+        Data da Avaliação: {{ evaluation_date|date:'d/m/Y' }}
+    </div>
+    <div class="user-info">
+        <div>   
+            <p><strong>Nome Completo:</strong> {{ questionnaire.participant_name|default_if_none:user.full_name }}</p>
+        </div>
+        <div>
+            <p><strong>ID:</strong> {{ questionnaire.participant_id|default_if_none:user.id }}</p>
+        </div>
+        <div>
+            <p><strong>Data de Nascimento:</strong> {{ questionnaire.birth_date|date:'d/m/Y' }}</p>
+        </div>
+    </div>
+    <div class="card-center">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd;">Componente do sono</th>
+                    <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd;">Nota</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 8px;">Qualidade Subjetiva do Sono</td>
+                    <td style="padding: 8px;">{{ sleep_quality }}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px;">Latência do Sono</td>
+                    <td style="padding: 8px;">{{ sleep_latency }}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px;">Duração do Sono</td>
+                    <td style="padding: 8px;">{{ sleep_duration }}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px;">Eficiência Habitual do Sono</td>
+                    <td style="padding: 8px;">{{ sleep_efficiency }}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px;">Distúrbios do Sono</td>
+                    <td style="padding: 8px;">{{ sleep_disorders }}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px;">Uso de Remédio para Dormir</td>
+                    <td style="padding: 8px;">{{ sleeping_pills }}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px;">Disfunção Diurna</td>
+                    <td style="padding: 8px;">{{ daytime_dysfunction }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p style="font-size: 12px;">As notas dos componentes variam de 0 a 3 pontos. Quanto menor a nota, melhor a qualidade.</p>
+    <div class="card-bottom">
+        <table style="width: 100%; border-collapse: collapse;">
+            <tbody>
+                <tr>
+                    <td style="padding: 8px; width: 15%;"><strong>Pontuação global:</strong></td>
+                    <td style="padding: 8px;">{{ total_score }} pontos.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; vertical-align: top;"><strong>Avaliação:</strong></td>
+                    <td style="padding: 8px;">{{ score_evaluation }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-size: 12px;">A pontuação geral varia de 0 a 21 pontos. Quanto menor a nota, melhor a qualidade.</p>
+    </div>
+    <div class="button-container">
+        <a href="{% url 'test_list' %}" class="btn">Voltar</a>
+    </div>
+</div>
+{% endblock %}

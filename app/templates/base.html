@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="America/Sao_Paulo">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}PSQI Project{% endblock %}</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: rgb(255, 255, 255);
+            color: rgb(0, 0, 0);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+    
+        header {
+            background-color: rgb(255, 255, 255);
+            color: rgb(18, 71, 81);
+            text-align: center;         
+            margin: 0; 
+            padding: 0; 
+            position: relative;
+            min-width: 950px;
+        }
+    
+        footer {
+            background-color: rgb(18, 71, 81);
+            color: rgb(255, 255, 255);
+            text-align: center;
+            position: relative;
+            margin-top: auto;
+            min-width: 950px;
+        }
+    
+        nav {
+            background-color: rgb(18, 71, 81);
+            color: rgb(255, 255, 255);
+            height: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+    
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+    
+        .right-align {
+            display: flex;
+            justify-content: flex-end;
+            margin-left: auto;
+        }
+    
+        nav ul li a {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            font-size: 16px;
+            padding: 15px;
+            transition: background-color 0.3s ease;
+        }
+    
+        nav ul li a:hover {
+            background-color: rgb(23, 93, 107);
+        }
+
+        main {
+            flex: 1; 
+            padding: 20px; 
+            box-sizing: border-box; 
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Início</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'test_list' %}">Meus Testes</a></li>
+                    <li><a href="{% url 'new_test' %}">Fazer Teste</a></li>
+                {% endif %}
+            </ul>
+
+            <ul class="right-align">
+                {% if not user.is_authenticated %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                {% else %}
+                    <li>Olá, {{ user.username }}</li>
+                    <li><a href="{% url 'logout' %}">Sair</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer style="font-size: 14px;">
+        <p>innera</p>
+        <p>e-mail: suporte@innerahealth.com.br</p>
+        <p>telefone: <a href="tel:+5511911600808" style="text-decoration: none; color: white;">+55 11 91160-0808</a></p>
+        <p>Copyright &copy; 2024 innera - Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

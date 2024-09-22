@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<style>
+    body {
+        font-family: sans-serif;
+        background-color: rgb(255, 255, 255);
+        color: rgb(255, 255, 255);
+        margin: 0;
+        padding: 0;
+    }
+
+    .card {
+        background-color: rgba(18, 71, 81);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        overflow: hidden;
+        text-align: center;
+        transition: all 0.3s ease;
+        max-width: 400px;
+        margin: 100px auto;
+        padding: 20px;
+    }
+
+    .form_group {
+        margin-bottom: 15px;
+        text-align: center; 
+    }
+
+    .form_group label {
+        font-weight: bold;
+        display: block; 
+        margin-bottom: 5px;
+    }
+
+    .form_group input {
+        width: 80%; 
+        padding: 8px;
+        box-sizing: border-box; 
+        display: block; 
+        margin: 0 auto; 
+    }
+
+    .buttons-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+    
+    .btn {
+        display: inline-block;
+        background-color: rgb(255, 255, 255);
+        color: rgba(18, 71, 81);
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+        margin: 0 10px;
+    }
+
+    .btn:hover {
+        font-weight: bold;
+    }
+    
+    .error {
+        color: red;
+        font-size: 0.875em;
+        margin: 0.5em 0;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <form method="post">
+        {% csrf_token %}
+        
+        {% if user_form.non_field_errors %}
+            <div class="error">
+                {% for error in user_form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="form_group">
+            <label for="{{ user_form.full_name.id_for_label }}">{{ user_form.full_name.label }}</label>
+            {{ user_form.full_name }}
+            {% if user_form.full_name.errors %}
+                <div class="error">
+                    {% for error in user_form.full_name.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form_group">
+            <label for="{{ user_form.date_of_birth.id_for_label }}">{{ user_form.date_of_birth.label }}</label>
+            {{ user_form.date_of_birth }}
+            {% if user_form.date_of_birth.errors %}
+                <div class="error">
+                    {% for error in user_form.date_of_birth.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form_group">
+            <label for="{{ user_form.email.id_for_label }}">{{ user_form.email.label }}</label>
+            {{ user_form.email }}  <!-- Novo campo de e-mail -->
+            {% if user_form.email.errors %}
+                <div class="error">
+                    {% for error in user_form.email.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form_group">
+            <label for="{{ user_form.username.id_for_label }}">{{ user_form.username.label }}</label>
+            {{ user_form.username }}
+            {% if user_form.username.errors %}
+                <div class="error">
+                    {% for error in user_form.username.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form_group">
+            <label for="{{ user_form.password1.id_for_label }}">{{ user_form.password1.label }}</label>
+            {{ user_form.password1 }}
+            {% if user_form.password1.errors %}
+                <div class="error">
+                    {% for error in user_form.password1.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form_group">
+            <label for="{{ user_form.password2.id_for_label }}">{{ user_form.password2.label }}</label>
+            {{ user_form.password2 }}
+            {% if user_form.password2.errors %}
+                <div class="error">
+                    {% for error in user_form.password2.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="buttons-container">
+            <button type="submit" class="btn">Cadastrar</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
