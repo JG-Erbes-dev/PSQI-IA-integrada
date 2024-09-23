@@ -3,7 +3,7 @@ from psqi.models import TestScore
 import google.generativeai as genai
 
 
-genai.configure(api_key='AIzaSyBirzGQhYpFJRZtX-2QX3kj0SGy7NXTRNg')
+genai.configure(api_key='API_KEY') #Substituia por sua API_KEY gerada
 
 def get_evaluation(questionnaire):
     test_score = get_object_or_404(TestScore, questionnaire=questionnaire)
