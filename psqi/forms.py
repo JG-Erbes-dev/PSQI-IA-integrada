@@ -91,16 +91,13 @@ class PSQIForm(forms.ModelForm):
             sleep_duration = sleep_duration.strip().lower()
             hours = 0
 
-            # Captura a parte de horas
             match = re.match(r'(\d+)\s*horas?', sleep_duration)
             if match:
                 hours = float(match.group(1))
 
-            # Verifica se há "e meia"
             if 'e meia' in sleep_duration:
                 hours += 0.5
 
-            # Captura a parte de minutos
             match = re.search(r'(\d+)\s*minutos?', sleep_duration)
             if match:
                 minutes = float(match.group(1)) / 60
