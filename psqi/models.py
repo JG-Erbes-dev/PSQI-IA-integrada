@@ -118,9 +118,7 @@ class Questionnaire(models.Model):
         
     def __str__(self):
         return f"Questionário PSQI de {self.participant_name} - Avaliado em {self.evaluation_date}"
-
-from django.db import models
-from datetime import datetime
+        
 
 class TestScore(models.Model):
     questionnaire = models.OneToOneField(Questionnaire, on_delete=models.CASCADE, related_name='psqi_score')
@@ -195,7 +193,7 @@ class TestScore(models.Model):
         return sleep_latency
 
     def sleep_duration_calc(self):
-        sleep_duration = float(self.sleep_duration)  # Certifique-se de que isso está chamando o valor correto
+        sleep_duration = float(self.sleep_duration)
         print(f"Duração do sono (depois do cálculo): {sleep_duration}")
 
         if sleep_duration >= 7:
