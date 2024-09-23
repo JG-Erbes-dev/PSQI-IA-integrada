@@ -3,7 +3,7 @@ from psqi.models import TestScore
 import google.generativeai as genai
 
 
-genai.configure(api_key='API_KEY') #Substituia por sua API_KEY gerada
+genai.configure(api_key='API_KEY')
 
 def get_evaluation(questionnaire):
     test_score = get_object_or_404(TestScore, questionnaire=questionnaire)
@@ -16,11 +16,12 @@ def get_evaluation(questionnaire):
     sleep_disorders = test_score.sleep_disorders
     sleeping_pills = test_score.sleeping_pills
     daytime_dysfunction = test_score.daytime_dysfunction
-    
+    other_reasons = questionnaire.other_reasons
+
 
     generate = genai.GenerativeModel('gemini-1.5-flash')
     prompt = f"""
-Gere uma avaliação do teste de PSQI do paciente com base nas notas abaixo, levando em conta as situações das notas específicas e o impacto na pontuação total {total_score}, SEM UTILIZAR ASTERISCOS OU OUTRAS FORMATAÇÕES E SIÍMBOLOS.
+Gere uma avaliação do teste de PSQI do paciente com base nas notas abaixo, levando em conta as situações das notas específicas e o impacto na pontuação total {total_score}, SEM UTILIZAR ASTERISCOS OU OUTRAS FORMATAÇÕES E SÍMBOLOS.
 
 As notas variam de 0 a 3, onde 0 indica nenhum problema e 3 indica problemas recorrentes.
 
@@ -33,9 +34,10 @@ Notas:
 - Uso de medicamentos para dormir: {sleeping_pills}
 - Disfunção diurna: {daytime_dysfunction}
 
-A pontuação total do paciente é {total_score}. 
+{f"Além disso, o paciente relatou os seguintes motivos adicionais para problemas de sono: {other_reasons}." if other_reasons else ""}
 
-Descreva cada nota individualmente, comentando sobre o impacto na qualidade do sono e na saúde do paciente. Faça um resumo geral com base na pontuação total e inclua recomendações. FAÇA DE FORMA SUCINTA!
+A pontuação total do paciente é {total_score}. Descreva cada nota individualmente, comentando sobre o impacto na qualidade do sono e na saúde do paciente. Faça um resumo geral com base na pontuação total e inclua recomendações. FAÇA DE FORMA SUCINTA!
 """
+    
     response = generate.generate_content(prompt).text
     return response
