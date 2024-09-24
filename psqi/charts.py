@@ -9,7 +9,9 @@ def create_score_graph(evaluation_dates, scores):
         mode='lines+markers',
         name='Pontuação global',
         line=dict(color='black'),
-        marker=dict(size=8)
+        marker=dict(size=6),
+        hovertemplate= 
+        '<b>Pontuação:</b> %{y}<extra></extra>'
     ))
 
     fig.update_layout(
@@ -23,8 +25,10 @@ def create_score_graph(evaluation_dates, scores):
         yaxis_title='Pontuação global',
         xaxis_tickformat='%d/%m/%Y', 
         plot_bgcolor='white',
-        yaxis=dict(gridcolor='lightgrey'),
-        xaxis=dict(gridcolor='lightgrey')
+        yaxis=dict(gridcolor='lightgrey', ),
+        xaxis=dict(gridcolor='lightgrey'),
+        autosize=True,
+        hovermode='x unified',
     )
 
     fig.update_xaxes(type='date')
