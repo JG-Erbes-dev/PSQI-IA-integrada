@@ -45,20 +45,20 @@ O projeto foi desenvolvido utilizando as seguintes Stacks:
 
 ## Instalação via download ZIP
 
-1- Descompacte os arquivos 
-2- Abra seu editor
-3- Vá em arquivo
-4- Abrir pasta
-5- Escolha a pasta do projeto (PSQI-IA-integrada)
-6- Crie seu ambiente virtual utilizando o comando:
-    python -m venv "nome do ambiente de sua escolha"
-7- Acesse seu ambiente virtual criado através do comando:
-    .\"nome do ambiente de sua escolha"\Scripts\activate
-Você verá que o seu terminal ficara com o nome do seu ambiente entre parênteses e na cor verde, à esquerda do endereço do seu terminal.
-8- Instale as dependencias através do comando:
-    pip install -r requirements.txt
-9- Após o final da instalação, para rodar a aplicação será necessário executar o comando:
-    python manage.py runserver
+<p>1- Descompacte os arquivos</p>
+<p>2- Abra seu editor</p>
+<p>3- Vá em arquivo</p>
+<p>4- Abrir pasta</p>
+<p>5- Escolha a pasta do projeto (PSQI-IA-integrada)</p>
+<p>6- Crie seu ambiente virtual utilizando o comando:<br>
+    python -m venv "nome do ambiente de sua escolha"</p>
+<p>7- Acesse seu ambiente virtual criado através do comando:<br>
+    .\"nome do ambiente de sua escolha"\Scripts\activate</p>
+<p>Você verá que o seu terminal ficara com o nome do seu ambiente entre parênteses e na cor verde, à esquerda do endereço do seu terminal.</p>
+<p>8- Instale as dependencias através do comando:<br>
+    pip install -r requirements.txt</p>
+<p>9- Após o final da instalação, para rodar a aplicação será necessário executar o comando:<br>
+    python manage.py runserver</p>
 
 ## Instalação via clonagem
 

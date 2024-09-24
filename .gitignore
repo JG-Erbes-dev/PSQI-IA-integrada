@@ -1,3 +1,5 @@
+# Ignorar ambiente virtual
 venv/
 
-*.sqlite
+# Ignorar arquivo do banco de dados SQLite
+db.sqlite3
