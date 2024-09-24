@@ -3,4 +3,3 @@ venv/
 
 # Ignorar arquivo do banco de dados SQLite
 db.sqlite3
-
