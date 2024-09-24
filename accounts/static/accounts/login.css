@@ -1,0 +1,60 @@
+body {
+    font-family: sans-serif;
+    background-color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
+    margin: 0;
+    padding: 0;
+}
+
+.card {
+    background-color: rgba(18, 71, 81);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    transition: all 0.3s ease;
+    max-width: 400px;
+    margin: 150px auto;
+    padding: 20px;
+}
+
+.form_group {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.form_group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form_group input {
+    width: 80%;
+    padding: 8px;
+    box-sizing: border-box;
+    display: block;
+    margin: 0 auto;
+}
+
+.buttons-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn {
+    display: inline-block;
+    background-color: rgb(255, 255, 255);
+    color: rgba(18, 71, 81);
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    margin: 0 10px;
+}
+
+.btn:hover {
+    font-weight: bold;
+}

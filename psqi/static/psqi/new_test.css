@@ -1,0 +1,282 @@
+.container {
+    width: 800px;
+    margin: 0 auto;
+    padding: 0 auto;
+    box-sizing: border-box;
+    position: relative;
+    overflow-x: auto;
+    font-size: 14px;
+    font-family: Calibri, sans-serif;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url('/media/gaipa-brasao-2.jpg'); 
+    background-size: 100% 22%; 
+    background-repeat: no-repeat;
+    background-position: calc(100%) center;
+    opacity: 0.11; 
+    pointer-events: none; 
+    z-index: 1; 
+}
+
+.form {
+    margin-top: 10px;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 2; 
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgba(18, 71, 81);
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    font-weight: bold;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-info {
+    border: 1px solid #000000;
+    background-color: #ffffff;
+    display: flex;
+    font-size: 14px;
+}
+
+.user-info .participant_name {
+    flex: 1.5;
+    text-align: left;
+    margin-left: 0.5%;
+}
+
+.user-info .participant_id {
+    flex: 0.4;
+    text-align: center;        
+    flex-wrap: nowrap;
+}
+
+.user-info .birth_date {
+    flex: 0.8;
+    text-align: center;
+}
+
+.date-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.date-container .input-date {
+    margin-top: 10px;
+    display: flex;
+    align-items: baseline;
+    width: 24%;
+}
+
+.date-container .input-text {
+    margin-top: 10px;
+    display: flex;
+    align-items: baseline;
+    width: 25%;
+}
+
+.date-container .input-text input::placeholder {
+    color: rgb(0, 0, 0);
+    opacity: 1;
+}
+
+.date-container label {
+    white-space: nowrap;
+}
+
+.date-container input[type="text"] {
+    margin-top: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 0;
+    border: 1px solid #000000;
+}
+
+th {
+    padding: 0 auto;
+    border: 1px solid #000000;
+    background-color: #ebebe0;
+    text-align: left;
+}
+
+.input-container {
+    display: flexbox;
+    text-align: start;
+}
+
+.input-container label,
+.input-container input {
+    align-content: center;
+    width: 38%; 
+    border: none;
+}
+
+.table-questionnaire th {
+    padding: 5px;
+    border: 1px solid #000000;
+    vertical-align: top;
+    text-align: center;
+} 
+
+.table-questionnaire td {
+    padding: 5px;
+    border: 1px solid #000000;
+    vertical-align: top;
+    text-align: center;
+}
+
+.table-questionnaire td.question {
+    padding: 5px;
+    font-weight: normal;
+    width: 22%; 
+    text-align: left; 
+}
+
+.table-questionnaire td.answer {
+    padding: 5px;
+    font-weight: normal;
+    width: 10%;
+    vertical-align: middle;
+}
+
+.table-questionnaire.second-part {
+    padding: 5px;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table-questionnaire.second-part th,
+.table-questionnaire.second-part td {
+    padding: 5px;
+    border: 1px solid #000000;
+    border: 1px solid #ddd;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table-questionnaire.second-part th.id-left {
+    padding: 5px;
+    border: 1px solid #000000;
+    text-align: left;
+}
+
+.table-questionnaire.second-part td.question {
+    width: 30px;
+    padding: 5px;
+    border: 1px solid #000000;
+    text-align: left;
+}
+
+.table-questionnaire.second-part td.answer {
+    width: 14%;
+    padding: 5px;
+    border: 1px solid #000000;
+}
+
+.table-questionnaire.second-part th:first-child {
+    padding: 5px;
+    border: 1px solid #000000;
+}
+
+.table-questionnaire.second-part th:not(:first-child) {
+    padding: 5px;
+    border: 1px solid #000000;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+}
+
+.bold-text {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.custom-checkbox {
+    position: absolute;
+    opacity: 0;
+}
+
+.custom-checkbox-container {
+    display: inline-block;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.custom-checkbox-span {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    margin-top: 8px;
+    margin-right: 8px;
+    font-size: 18px;
+    line-height: 20px;
+}
+
+.custom-checkbox-span::before {
+    content: "[";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: bold;
+}
+
+.custom-checkbox-span::after {
+    content: "]";
+    position: absolute;
+    top: 0%;
+    left: 63%;
+    font-weight: bold;
+}
+
+.custom-checkbox:checked + .custom-checkbox-span::before {
+    content: "[";
+    position: absolute;
+}
+
+.custom-checkbox:checked + .custom-checkbox-span::after {
+    content: "X]";
+    position: absolute;
+    top: 52%;
+    left: 54.5%;
+    transform: translate(-50%, -60%);
+}
+
+.references {
+    position: relative;
+    overflow-x: auto;
+}

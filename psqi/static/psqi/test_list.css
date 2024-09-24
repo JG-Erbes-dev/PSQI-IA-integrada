@@ -1,0 +1,82 @@
+body {
+    background-color: #dfdfdf;
+}
+
+.container {
+    display: flex; 
+    margin: 0;
+    padding: 1rem;
+}
+
+.test-list {
+    width: 150px; 
+    margin: 0;
+    background-color: white;
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem; 
+}
+
+.card {
+    flex: 1;
+    padding: 1rem; 
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 1rem; 
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn {
+    display: inline-block;
+    background-color: rgba(18, 71, 81);
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 6px 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    font-weight: bold;
+}
+
+h2 {
+    text-align: center;
+    color: #000000;
+    margin-bottom: 1rem;
+}
+
+table {
+    width: 100%; 
+    border-collapse: collapse;
+    margin-top: 1rem; 
+}
+
+th, td {
+    text-align: left; 
+    padding: 12px; 
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2; 
+    color: #333;
+}
+
+td a {
+    color: rgb(23, 93, 107);
+    text-decoration: none;
+}
+
+td a:hover {
+    text-decoration: underline;
+}
